@@ -20,7 +20,8 @@ def user_messages(message):
     elif message == 'opponent_select':
         print('\n\n\nLet\'s see who you\'re up against. It looks like it\'s...')
     elif message == 'get_ready':
-        print('\n\n\n"Okay, fight!"\n\n')
+        print('\n\n\n"Ready to fight?"')
+        print('"Okay, fight!"' + input('Press ENTER') + '\n\n')
     elif message == 'roll_for_first':
         print('Rolling to see who goes first...')
 
@@ -151,9 +152,11 @@ def combat_round(opponent_one, opponent_two):
     print(opponent_two[0] + ' the ' + opponent_two[1] + ' rolls a ' + str(opponent_two_first_roll) + '.')
     if opponent_one_first_roll > opponent_two_first_roll:
         print(opponent_one[0] + ' attacks first!\n\n')
+        print(input('Press ENTER'))
         hit_checker(opponent_two, opponent_one)
     elif opponent_one_first_roll < opponent_two_first_roll:
         print(opponent_two[0] + ' attacks first!\n\n')
+        print(input('Press ENTER'))
         hit_checker(opponent_one, opponent_two)
     else:
         print('Tie! Roll again.')
@@ -162,7 +165,7 @@ def combat_round(opponent_one, opponent_two):
 
 def hit_checker(defender, attacker):
     defense_dexterity = defender[6]
-    print(defender[0] + '\'s ' + defense_dexterity.lower())
+    print('\n' + defender[0] + '\'s ' + defense_dexterity.lower())
     defense_dexterity_list = list(defense_dexterity)
     defense_dexterity_slice = defense_dexterity_list[11:]
     if len(defense_dexterity_slice) == 2:
