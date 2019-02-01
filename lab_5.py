@@ -1,7 +1,9 @@
 # Brodie Heywood
-# November, 2018
+# November 18, 2018
 
-"""Burger Grandpa"""
+"""Burger Grandpa v2.2"""
+# TODO: finish commenting functions
+# TODO: add/remove functions from player class
 
 import json
 import random
@@ -11,11 +13,10 @@ import time
 def title_screen():
     """Display Burger Grandpa title screen.
 
+    Tell user to "hit enter to coninue."
     PARAM: None
-    PRECONDITION: None
-    POSTCONDITION: prints ASCII art of grandpa, "Burger Grandpa" title, and five hamburgers. Also
-    displays author name ("Brodie Heywood's") and instructions to user ("hit enter to continue")
-    RETURN: "Burger Grandpa" picture and title as string
+    POSTCONDITION: prints Burger Grandpa title screen
+    RETURN: None
     """
     print("""
                 ,-----.
@@ -39,22 +40,19 @@ def title_screen():
        ||     /'""| |""`\\
        []     `===' `==='                                   \U0001F354  HIT \x1b[1mENTER\x1b[0m TO START  \U0001F354
     """)
-    # ASCII Grandpa courtesy of http://www.ascii-art.de/ascii/
-    # ASCII Text ("Burger Grandpa") courtesy of http://www.network-science.de/ascii/
-    # "\U0001F5E2" is a Unicode lips icon. "\U0001F354" is a Unicode hamburger. "Brodie Heywood's" uses Unicode
-    # handwriting characters.
-    # Python markup (for example, "\x1b[1m") is used to emphasize and colour font.
-    # Triple quotes are used to encapsulate ASCII art to preserve formatting.
+    # ASCII Grandpa http://www.ascii-art.de/ascii/
+    # "\U0001F5E2" - Unicode lips. "\U0001F354" - Unicode hamburger.
+    # Triple quotes encapsulate ASCII art to preserve formatting.
     return enter_to_continue()
 
 
 def introduction():
-    """Display introductory text.
+    """Display introduction.
 
+    Explain game mechanics.
     PARAM: None
-    PRECONDITION: None
-    POSTCONDITION: print introduction text
-    RETURN: introduction text as strings
+    POSTCONDITION: prints introduction text with one second pauses
+    RETURN: None
     """
     print('You are the Burger Grandpa. It\'s your job to feed your hungry neighbours.\n')
     time.sleep(1)  # Used throughout program. Pauses program for given number of seconds.
@@ -67,22 +65,21 @@ def introduction():
 
 
 def map_display(coordinates):
-    """Display world map showing location of character.
+    """Display world map showing location of player.
 
-    PARAM: coordinates, a set containing two positive integers that represent player character's position on game map
-    (index 0 is x-coordinate, index 1 is y-coordinate)
-    PRECONDITION: coordinates must be a set containing two positive integers between 1 and 5
-    POSTCONDITION: draw map grid with title and cell coordinates inside each cell (except where player coordinates
-    match cell coordinates; these cell coordinates are replaced by "GRANDPA")
-    RETURN: world map and character's position in world represented by strings
+    PARAM: coordinates, a set of two positive integers that represents player's coordinates on a 5x5 grid (map)
+    PRECONDITION: coordinates must be a set containing two positive integers between 1 and 5, inclusive
+    POSTCONDITION: Draws a 5x5 grid. Grid has coordinates inside each cell. Where player coordinates match cell
+    coordinates, coordinates are replaced with "GRANDPA."
+    RETURN: None
     """
     display_map_name()
 
-    # first, define character's current coordinates (these will be replaced by "Grandpa" inside map cell).
+    # define character's current coordinates (will be replaced by "GRANDPA" inside map cell).
     to_be_replaced = ' (' + str(coordinates[0]) + ',' + str(coordinates[1]) + ') '
 
     horizontal_cell_border = (("|" + ("-" * 9)) * 5) + "|"
-    vertical_cell_border = (("|" + (" " * 9))*5) + "|"
+    vertical_cell_border = (("|" + (" " * 9)) * 5) + "|"
 
     for row in range(5, 0, -1):  # y-axis labels
         print(horizontal_cell_border)
@@ -101,7 +98,7 @@ def display_map_name():
     PARAM: None
     PRECONDITION: None
     POSTCONDITION: print title above game map to indicate what map represents
-    RETURN: map title as a string
+    RETURN: None
     """
     print('\n\nMap of the Neighbourhood')
 
@@ -109,8 +106,7 @@ def display_map_name():
 def get_lot_type(coordinates):
     """Return place name assigned to coordinate point on map.
 
-    PARAM: coordinates, a set containing two positive integers that represent player character's position on game map
-    (index 0 is x-coordinate, index 1 is y-coordinate)
+    PARAM: coordinates, a set of two positive integers that represents player's coordinates on a 5x5 grid (map)
     PRECONDITION: coordinates must be a set containing two positive integers between 1 and 5
     POSTCONDITION: return a two to three word string that briefly describes the given coordinate with a place name
     RETURN: key, a string stating the user-displayed name of the coordinate point
@@ -502,9 +498,9 @@ def display_hp_for_battle(player, npc):
     POSTCONDITION: decrement classes .hp attribute by amount given
     RETURN: None
     """
-    print('\n\n\x1b[32mBurger Grandpa HP:', '\x1b[33m\U0001F354\x1b[0m'*player.hp, '\x1b[32m(' + str(player.hp) +
+    print('\n\n\x1b[32mBurger Grandpa HP:', '\x1b[33m\U0001F354\x1b[0m' * player.hp, '\x1b[32m(' + str(player.hp) +
           '/10)\x1b[0m')
-    print('\x1b[31mNeighbour HP:', '\U0001F374'*npc.hp, '(' + str(npc.hp) + '/10)\x1b[0m\n')
+    print('\x1b[31mNeighbour HP:', '\U0001F374' * npc.hp, '(' + str(npc.hp) + '/10)\x1b[0m\n')
     time.sleep(1)
     return
 
@@ -577,8 +573,9 @@ def game_win(player):
     RETURN: None
     """
     print('\n\n\x1b[34mYou fed all of your hungry neighbours! Good job', player.name,
-          '!\nHere\'s a burger for yourself:\x1b[0m\n\n', ' '*15, ' \x1b[33m\U0001F354\x1b[0m\n\n\x1b[34mToo bad it\'s '
-                                                                  'not real!\x1b[0m\n\n')
+          '!\nHere\'s a burger for yourself:\x1b[0m\n\n', ' ' * 15,
+          ' \x1b[33m\U0001F354\x1b[0m\n\n\x1b[34mToo bad it\'s '
+          'not real!\x1b[0m\n\n')
     print('Now Burger Grandpa can go home for a nap.')
     restart_game()
 
